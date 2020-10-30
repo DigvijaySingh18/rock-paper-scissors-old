@@ -1,0 +1,88 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Rock Paper Scissors</title>
+    </head>
+
+    <body>
+        <script>
+            //declare global variable to keep score of computer and user
+            let computerScore = 0;
+            let playerScore = 0;
+
+            // Make computer choose between Rock, Paper and Scissors
+            function computerPlay(){
+                let choices = ["Rock", "Paper", "Scissors"];
+                let randomChoice = Math.floor(Math.random() * Math.floor(3));
+                return choices[randomChoice];
+            }
+
+            // Play round and determine the winner for that round by comparing the two selctions
+            function playRound(playerSelection, computerSelection){
+                if ( playerSelection.toUpperCase() == "ROCK" ){
+                    if (computerSelection == "Rock"){
+                        return "Its a Tie! Both selected Rock";
+                    } else if (computerSelection == "Paper"){
+                        computerScore += 1;
+                        return "You Lose! Paper beats Rock";
+                    } else if (computerSelection == "Scissors"){
+                        playerScore += 1;
+                        return "You Win! Rock beats Scissors";
+                    } else{
+                        return "Computer choice error";
+                    }
+                    
+                } else if( playerSelection.toUpperCase() == "PAPER" ){
+                    if (computerSelection == "Rock"){
+                        playerScore += 1;
+                        return "You Win! Paper beats Rock";
+                    } else if (computerSelection == "Paper"){
+                        return "Its a Tie! Both selected Paper";
+                    } else if (computerSelection == "Scissors"){
+                        computerScore += 1;
+                        return "You Lose! Scissors beats Paper";
+                    } else{
+                        return "Computer choice error";
+                    }
+
+                } else if( playerSelection.toUpperCase() == "SCISSORS" ){
+                    if (computerSelection == "Rock"){
+                        computerScore += 1;
+                        return "You Lose! Rock beats Scissors";
+                    } else if (computerSelection == "Paper"){
+                        playerScore += 1;
+                        return "You Win! Scissors beats Paper";
+                    } else if (computerSelection == "Scissors"){
+                        return "Its a Tie! Both selected Scissors";
+                    } else{
+                        return "Computer choice error";
+                    }
+
+                } else {
+                    return "Invalid Entry by User";
+                }
+            }
+
+            // This funtion iterates the playRound function for 5 rounds and determines the winner of the Game
+            function game(){               
+                for (i=0;i<5;i++){
+                    let playerSelection = prompt("Pick Rock, Paper or Scissors");
+                    let computerSelection = computerPlay();
+                    console.log(playRound(playerSelection, computerSelection));
+                }
+
+                if (computerScore > playerScore){
+                    console.log("You Lost the Game!")
+                } else if (computerScore < playerScore){
+                    console.log("You Won the Game!");
+                } else{
+                    console.log("Game Ended as a Tie!");
+                }
+            }
+
+            //calling game function for the whole Game 
+            game();
+            
+        </script>
+    </body>
+</html>
