@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Rock Paper Scissors</title>
+    </head>
+
+    <body>
+        <div id='mainDiv'>
+        <button id='rock'>Rock</button>
+        <button id='paper'>Paper</button>
+        <button id='scissors'>Scissors</button>
+        </div>
+        <br>
+        <div id='roundResult'></div>
+        <div id='score'></div>
+
+        <script>
+            //declare global variable to keep score of computer and user
+            let computerScore = 0;
+            let playerScore = 0;
+
+            // Make computer choose between Rock, Paper and Scissors
+            function computerPlay(){
+                let choices = ["Rock", "Paper", "Scissors"];
+                let randomChoice = Math.floor(Math.random() * Math.floor(3));
+                return choices[randomChoice];
+            }
+
+            // Play round and determine the winner for that round by comparing the two selctions
+            function playRound(playerSelection){
+                let computerSelection = computerPlay();
+                if ( playerSelection.toUpperCase() == "ROCK" ){
+                    if (computerSelection == "Rock"){
+                        result = "Its a Tie! Both selected Rock";
+                    } else if (computerSelection == "Paper"){
+                        computerScore += 1;
+                        result = "You Lose! Paper beats Rock";
+                    } else if (computerSelection == "Scissors"){
+                        playerScore += 1;
+                        result = "You Win! Rock beats Scissors";
+                    } else{
+                        console.log("Computer choice error");
+                    }
+                    
+                } else if( playerSelection.toUpperCase() == "PAPER" ){
+                    if (computerSelection == "Rock"){
+                        playerScore += 1;
+                        result = "You Win! Paper beats Rock";
+                    } else if (computerSelection == "Paper"){
+                        result = "Its a Tie! Both selected Paper"
+                    } else if (computerSelection == "Scissors"){
+                        computerScore += 1;
+                        result = "You Lose! Scissors beats Paper";
+                    } else{
+                        console.log("Computer choice error");
+                    }
+
+                } else if( playerSelection.toUpperCase() == "SCISSORS" ){
+                    if (computerSelection == "Rock"){
+                        computerScore += 1;
+                        result = "You Lose! Rock beats Scissors";
+                    } else if (computerSelection == "Paper"){
+                        playerScore += 1;
+                        result = "You Win! Scissors beats Paper";
+                    } else if (computerSelection == "Scissors"){
+                        result = "Its a Tie! Both selected Scissors";
+                    } else{
+                        console.log("Computer choice error");
+                    }
+
+                } else {
+                    console.log("Invalid Entry by User");
+                }
+
+                // Getting final result of the game and disabling buttons
+                if (playerScore == 5){
+                    result = "You won the Game! Reload the page to play again";
+                    disableButtons();
+                }
+                if (computerScore == 5){
+                    result = "You Lose the Game! Reload the page to play again";
+                    disableButtons();
+                }
+
+                // Showing final result of the game
+                const roundResult = document.querySelector('#roundResult');
+                roundResult.textContent = result;
+            }
+
+            // Disabling buttons
+            function disableButtons(){
+                buttons.forEach( button =>{
+                    button.disabled = true;
+                })          
+            }
+            
+            //Selecting buttons for Rock,Paper and Scissors
+            const rock = document.querySelector('#rock');
+            //Adding Event Listener to call function playRound with appropriate input and update score
+            rock.addEventListener('click', () => {
+                playRound('rock');
+                para.textContent = `Current Score is  Player ${playerScore} : Computer ${computerScore}`;
+            });
+            
+            const paper = document.querySelector('#paper');
+            paper.addEventListener('click', () => {
+                playRound('paper');
+                para.textContent = `Current Score is  Player ${playerScore} : Computer ${computerScore}`;
+            });
+
+            const scissors = document.querySelector('#scissors');
+            scissors.addEventListener('click', () => {               
+                playRound('scissors');
+                para.textContent = `Current Score is  <br/>Player ${playerScore} : Computer ${computerScore}`;
+            });
+
+            // Selecting all buttons for disabling buttons
+            const buttons = document.querySelectorAll('button');
+
+            // Selecting div with id score and creating para element to show the current score
+            const div = document.querySelector('#score');
+            const para = document.createElement('p');
+            div.appendChild(para);
+             
+        </script>
+    </body>
+</html>
